@@ -4,6 +4,7 @@
 using std::cout;
 using std::cin;
 using std::string;
+using std::endl;
 
 //template <class T>
 struct node{
@@ -11,41 +12,77 @@ struct node{
   string data;
   node *next;
 
-  node(string initdata){
-    data=initdata;
-  }//regular constructor; or just set from outside?
-  node(){
-    data="";
-    
-  }
+//  ~node(){
+//    delete next;
+//    delete data;
+//  }
+
 };
 
 class LinkedList{
 private:
-  node head;
-  node tail;//one way of speeding up push
+  node *head;
+  int length;
+//  node tail;//one way of speeding up push
 public:
-  LinkedList(string initdata){
-    head.data=initdata;
+//  LinkedList(string initdata){
+//    head.data=initdata;
+//  }//regular constructor
+//needs work
 
-  }//regular constructor
+  LinkedList(){
+    node* head = NULL;
+  }
+
+  void addNode(string data){
+    node* nodePointer = new node;
+    nodePointer->next=head;
+    nodePointer->data=data;
+
+    head=nodePointer;
+    length++;
+  }
+
+  void printList(){
+    node *tempptr;
+    tempptr=head;
+    for (int i=0; i<length; i++){
+      cout << tempptr->data << endl;
+      tempptr= tempptr->next;
+    }
+    //delete tempptr; ??
+  }
+
+
   ~LinkedList(){
-    //will need to walk the list and destruct all the nodes.
-    //It would be clever to have a node terminator send the
-    //terminator message to the next node
+//    node *tempptr;
+//    node *tempptr2;
+//    tempptr=headPointer;
+//    tempptr2=tempptr;
+//    for (inti=0; i<length; i++){
+  //  }
   }//destructor
+  //needs work
+
+
+
 }; //class LinkedList
 
 
 
 int main(){
-  cout << "What string to initialize?";
+  cout << "What string for node 1?";
   string initdata;
   cin >> initdata;
-  LinkedList sampleList(initdata);
+  LinkedList sampleList;
+  sampleList.addNode(initdata);
 
+  string moredata;
+  cout << "What string for node 2?";
+  cin >> moredata;
+  sampleList.addNode(moredata);
 
+  sampleList.printList();
 
-
-  return 1;
+  return 0;
 }
