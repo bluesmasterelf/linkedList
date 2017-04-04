@@ -11,12 +11,6 @@ struct node{
   //T data;
   string data;
   node *next;
-
-//  ~node(){
-//    delete next;
-//    delete data;
-//  }
-
 };
 
 class LinkedList{
@@ -25,10 +19,6 @@ private:
   int length;
 //  node tail;//one way of speeding up push
 public:
-//  LinkedList(string initdata){
-//    head.data=initdata;
-//  }//regular constructor
-//needs work
 
   LinkedList(){
     node* head = NULL;
@@ -53,22 +43,16 @@ public:
     //delete tempptr; ??
   }
 
-
   ~LinkedList(){
-//    node *tempptr;
-//    node *tempptr2;
-//    tempptr=headPointer;
-//    tempptr2=tempptr;
-//    for (inti=0; i<length; i++){
-  //  }
+    node *tempptr=new node;
+    tempptr=head;
+    for (int i=0; i<=length; i++){
+      delete tempptr;
+      tempptr=tempptr->next;  //bad practice, don't call a deleted pointer
+    }
   }//destructor
-  //needs work
-
-
 
 }; //class LinkedList
-
-
 
 int main(){
   cout << "What string for node 1?";
@@ -83,6 +67,20 @@ int main(){
   sampleList.addNode(moredata);
 
   sampleList.printList();
+
+  node* testNode=new node;
+  testNode->data="test word";
+  testNode->next=NULL;
+
+  cout << testNode->data << endl;
+
+  delete testNode;
+
+  node* overwrite=new node;
+  overwrite->data="sufficient to delete test word.";
+  overwrite->next=NULL;
+  cout << testNode->data << endl;
+
 
   return 0;
 }
