@@ -8,6 +8,16 @@ using std::endl;
 
 //template <class T>
 struct node{
+  node() {
+    next = NULL;
+  }
+
+  ~node() {
+    if (next != NULL) {
+      delete next;
+    }
+  }
+
   //T data;
   string data;
   node *next;
@@ -21,7 +31,8 @@ private:
 public:
 
   LinkedList(){
-    node* head = NULL;
+    head = NULL;
+    length = 0;
   }
 
   void addNode(string data){
@@ -40,16 +51,10 @@ public:
       cout << tempptr->data << endl;
       tempptr= tempptr->next;
     }
-    //delete tempptr; ??
   }
 
   ~LinkedList(){
-    node *tempptr=new node;
-    tempptr=head;
-    for (int i=0; i<=length; i++){
-      delete tempptr;
-      tempptr=tempptr->next;  //bad practice, don't call a deleted pointer
-    }
+    delete head;
   }//destructor
 
 }; //class LinkedList
